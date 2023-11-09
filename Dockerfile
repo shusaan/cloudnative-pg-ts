@@ -12,9 +12,9 @@ USER root
 # 	rm -rf /var/lib/apt/lists/*;
 
 # Install timescaledb 2.x Extension
-RUN 
-    apt-get update \
-    && apt-get install -y lsb-release wget \
+RUN set -xe; \
+    apt-get update; \
+    apt-get install -y lsb-release wget; \
     && echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/timescaledb.list \
     && wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add - \
     && apt-get update \
