@@ -6,6 +6,7 @@ USER root
 # and clean up any cache from the package manager
 RUN set -xe; \
 	apt-get update; \
+    apt-get install -y lsb-release wget; \
     echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/timescaledb.list; \
     wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add - ; \
     apt-get update; \
