@@ -12,7 +12,6 @@ RUN set -xe; \
     apt-get update; \
 	apt-get install -y --no-install-recommends \
         timescaledb-2-postgresql-12='2.10.3*' timescaledb-2-loader-postgresql-12='2.10.3*' ; \
-		"timescaledb-2-2.10.3-postgresql-15=2.10.3" ; \
     apt-get remove -y lsb-release wget ; \
 	rm -fr /tmp/* ; \
 	rm -rf /var/lib/apt/lists/*;
