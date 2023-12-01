@@ -1,5 +1,5 @@
 ## 
-FROM ghcr.io/cloudnative-pg/postgresql:15.4
+FROM ghcr.io/cloudnative-pg/postgresql:16.1
 # To install any package we need to be root
 USER root
 # We update the package list, install our package , # Install timescaledb 2.x Extension
@@ -11,7 +11,7 @@ RUN set -xe; \
     wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add - ; \
     apt-get update; \
 	apt-get install -y --no-install-recommends \
-        timescaledb-2-postgresql-15='2.11.2*' timescaledb-2-loader-postgresql-15='2.11.2*' ; \
+        timescaledb-2-postgresql-16='2.13.0*' timescaledb-2-loader-postgresql-16='2.13.0*' ; \
     apt-get remove -y lsb-release wget ; \
 	rm -fr /tmp/* ; \
 	rm -rf /var/lib/apt/lists/*;
