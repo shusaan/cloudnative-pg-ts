@@ -1,18 +1,15 @@
 ## 
-FROM ghcr.io/cloudnative-pg/postgresql:16.1
+FROM postgres:16.2-alpine3.19
 # To install any package we need to be root
 USER root
 # We update the package list, install our package , # Install timescaledb 2.x Extension
 # and clean up any cache from the package manager
 RUN set -xe; \
-	apt-get update; \
-    apt-get install -y lsb-release wget; \
-    echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/timescaledb.list; \
-    wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add - ; \
-    apt-get update; \
-	apt-get install -y --no-install-recommends \
-        timescaledb-2-postgresql-16='2.13.0*' timescaledb-2-loader-postgresql-16='2.13.0*' timescaledb-toolkit-postgresql-16='1:1.18.0*' ; \
-    apt-get remove -y lsb-release wget ; \
-	rm -fr /tmp/* ; \
-	rm -rf /var/lib/apt/lists/*;
+    sed -i 's|v3\.\d*|edge|' /etc/apk/repositories; \
+	apk update; \
+    apk add postgresql-pgvector; \
+    apk add postgresql-timescaledb; \
+    apk add barman --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/; \
+    apk add --allow-untrusted ./x86_64/pgaudit-16.0-r1.apk; \
+    apk add --allow-untrusted ./x86_64/pg-failover-slots-1.0.1-r1.apk;
 USER 26
