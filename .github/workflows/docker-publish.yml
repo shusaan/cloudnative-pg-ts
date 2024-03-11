@@ -71,7 +71,7 @@ jobs:
           platforms: linux/amd64
           #platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/shusaan/cloudnative-pg-ts:16.2-2.14.0
+          tags: ghcr.io/shusaan/cloudnative-pg-ts:16.2.14.1
                        #${{ steps.docker-id.outputs.tags }}
           labels: ${{ steps.docker-id.outputs.labels }}
 
