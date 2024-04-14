@@ -1,4 +1,4 @@
-FROM postgres:16.2-alpine3.19
+FROM ghcr.io/cloudnative-pg/postgresql:16.2
 # To install any package we need to be root
 USER root
 # We update the package list, install our package , # Install timescaledb 2.x Extension
