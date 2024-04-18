@@ -2,11 +2,12 @@
 FROM debian:bullseye-slim as builder
 
 RUN set -xe ;\
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh ;\
     apt update && apt install wget lsb-release gnupg2 -y ;\
     sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' ;\
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - ;\
     apt-get update ;\
-	apt-get install -y cargo make gcc pkg-config clang postgresql-server-dev-16 libssl-dev git; \
+	apt-get install -y make gcc pkg-config clang postgresql-server-dev-16 libssl-dev git; \
 	cargo install --version '=0.10.2' --force cargo-pgrx; \
 	cargo pgrx init --pg16 pg_config; \
 	git clone https://github.com/timescale/timescaledb-toolkit && \
