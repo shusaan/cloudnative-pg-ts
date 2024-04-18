@@ -10,7 +10,7 @@ RUN set -xe; \
     wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add - ; \
     apt-get update; \
 	apt-get install -y --no-install-recommends \
-        timescaledb-2-postgresql-16='2.14.2*' timescaledb-2-loader-postgresql-16='2.14.2*' ; \
+        timescaledb-2-postgresql-16='2.14.2*' timescaledb-2-loader-postgresql-16='2.14.2*' timescaledb-toolkit-postgresql-16='1:1.18.0*' ; \
     apt-get remove -y lsb-release wget ; \
 	rm -fr /tmp/* ; \
 	rm -rf /var/lib/apt/lists/*;
