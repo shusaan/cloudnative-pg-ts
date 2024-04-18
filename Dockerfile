@@ -4,20 +4,18 @@ FROM debian:bullseye-slim as builder
 RUN set -xe ;\
     apt update && apt install curl wget lsb-release gnupg2 -y ;\
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain stable -y ;\
-    export PATH=$PATH:~/.cargo/bin/ && cargo --help
-    # source .cargo/env && cargo --help
-    # source .cargo/env && cargo --help ; \
-    # sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' ;\
-    # wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - ;\
-    # apt-get update ;\
-	# apt-get install -y make gcc pkg-config clang postgresql-server-dev-16 libssl-dev git; \
-	# cargo install --version '=0.10.2' --force cargo-pgrx; \
-	# cargo pgrx init --pg16 pg_config; \
-	# git clone https://github.com/timescale/timescaledb-toolkit && \
-	# cd timescaledb-toolkit/extension; \
-	# cargo pgrx install --release && \
-	# cargo run --manifest-path ../tools/post-install/Cargo.toml -- pg_config; \
-	# ls -lah /usr/share/postgresql/16/ && ls -lah /usr/share/postgresql/16/extension/ && ls -lah /usr/lib/postgresql/16/lib/
+    export PATH=$PATH:~/.cargo/bin/ && cargo --help ; \
+    sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' ;\
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - ;\
+    apt-get update ;\
+	apt-get install -y make gcc pkg-config clang postgresql-server-dev-16 libssl-dev git; \
+	cargo install --version '=0.10.2' --force cargo-pgrx; \
+	cargo pgrx init --pg16 pg_config; \
+	git clone https://github.com/timescale/timescaledb-toolkit && \
+	cd timescaledb-toolkit/extension; \
+	cargo pgrx install --release && \
+	cargo run --manifest-path ../tools/post-install/Cargo.toml -- pg_config; \
+	ls -lah /usr/share/postgresql/16/ && ls -lah /usr/share/postgresql/16/extension/ && ls -lah /usr/lib/postgresql/16/lib/
 
 
 # FROM ghcr.io/cloudnative-pg/postgresql:16.2
