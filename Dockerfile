@@ -3,7 +3,7 @@ FROM debian:bullseye-slim as builder
 
 RUN set -xe ;\
     apt update && apt install curl wget lsb-release gnupg2 -y ;\
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh ;\
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain stable -y ;\
     sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' ;\
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - ;\
     apt-get update ;\
