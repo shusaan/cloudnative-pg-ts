@@ -2,6 +2,7 @@
 FROM timescale/timescaledb-ha:pg16.2-ts2.14.2
 # To install any package we need to be root
 USER root
+RUN pwd && ls -lah
 COPY requirements.txt /
 # Install barman-cloud
 RUN set -xe; \
@@ -13,6 +14,7 @@ RUN set -xe; \
 	; \
 	pip3 install --upgrade pip; \
 # TODO: Remove --no-deps once https://github.com/pypa/pip/issues/9644 is solved
-	pip3 install --no-deps -r requirements.txt; \
-	rm -rf /var/lib/apt/lists/*;
+    pwd && ls -lah 
+    # pip3 install --no-deps -r requirements.txt; \
+	# rm -rf /var/lib/apt/lists/*;
 USER postgres
