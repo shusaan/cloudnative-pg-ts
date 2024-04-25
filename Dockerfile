@@ -2,6 +2,7 @@
 FROM timescale/timescaledb-ha:pg16.2-ts2.14.2
 # To install any package we need to be root
 USER root
+COPY requirements.txt /
 # Install barman-cloud
 RUN set -xe; \
 	apt-get update; \
