@@ -29,7 +29,8 @@ RUN apk update && apk add -U --no-cache -t .build-deps1 \
 	clang-dev \
     python3 \
     python3-dev \
-    py3-pip
+    py3-pip \
+	postgresql-dev
 
 # Build and install pgaudit
 RUN mkdir /pgaudit && cd /pgaudit \
