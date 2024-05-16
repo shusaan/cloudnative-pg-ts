@@ -84,7 +84,7 @@ USER root
 # Copy necessary files from build stage to runtime stage
 COPY --from=build /usr/local/share/postgresql/extension/* /usr/local/share/postgresql/extension/
 COPY --from=build /usr/local/lib/postgresql/* /usr/local/lib/postgresql/
-COPY --from=build /app/venv/* /app/barman/
-ENV PATH="/app/barman/bin:$PATH"
+# COPY --from=build /app/venv/* /app/barman/
+# ENV PATH="/app/barman/bin:$PATH"
 
 USER 26
