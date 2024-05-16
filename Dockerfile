@@ -26,6 +26,7 @@ RUN apk update && apk add -U --no-cache -t .build-deps1 \
     pkgconf \
     cargo \
     clang \
+	clang-dev \
     python3 \
     python3-dev \
     py3-pip
