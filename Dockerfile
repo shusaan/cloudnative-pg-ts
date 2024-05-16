@@ -30,7 +30,11 @@ RUN apk update && apk add -U --no-cache -t .build-deps1 \
     python3 \
     python3-dev \
     py3-pip \
-	postgresql-dev
+	postgresql-dev \
+    py3-gpep517 \
+    py3-setuptools \
+    py3-wheel \
+    libffi-dev
 
 # Build and install pgaudit
 RUN mkdir /pgaudit && cd /pgaudit \
@@ -48,8 +52,8 @@ RUN mkdir /pgvector && cd /pgvector \
     && make install OPTFLAGS=""
 
 # Build and install barman
-RUN python3 -m venv /app/venv \
-    && PATH="/app/venv/bin:$PATH" \
+RUN python3 -m venv /barman \
+    && PATH="/barman/bin:$PATH" \
     && pip install --no-cache-dir 'barman[cloud,azure,snappy,google]'
 
 # Build Timescaledb
@@ -80,11 +84,20 @@ RUN TS_TOOLKIT_VERSION=1.18.0 \
 # Second stage: Runtime stage
 FROM postgres:16.3-alpine3.19
 USER root
+# Dependencies for barman
+RUN apk add -U --no-cache \
+    python3 \
+    rsync \
+    py3-argcomplete \
+    py3-dateutil \
+    py3-psycopg2 \
+    py3-boto3
 
 # Copy necessary files from build stage to runtime stage
 COPY --from=build /usr/local/share/postgresql/extension/* /usr/local/share/postgresql/extension/
 COPY --from=build /usr/local/lib/postgresql/* /usr/local/lib/postgresql/
-# COPY --from=build /app/venv/* /app/barman/
-# ENV PATH="/app/barman/bin:$PATH"
+COPY --from=build /barman /barman
 
-USER 26
+ENV PATH="/barman/bin:$PATH"
+
+USER 70
