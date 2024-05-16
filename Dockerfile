@@ -2,7 +2,7 @@
 FROM postgres:16.3-alpine3.19 AS build
 
 # Install necessary packages
-RUN apk add -U --no-cache -t .build-deps1 \
+RUN apk update && apk add -U --no-cache -t .build-deps1 \
     git \
     build-base \
     openssl-dev \
