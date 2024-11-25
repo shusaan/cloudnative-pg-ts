@@ -19,8 +19,7 @@ WORKDIR /pg_failover_slots
 RUN git clone https://github.com/EnterpriseDB/pg_failover_slots --branch v1.1.0 . \
     && make install
 
-# Create the final container
-FROM timescale/timescaledb:2.17.2-pg17
+
 
 
 # # Build TSDB-toolkit
@@ -38,10 +37,11 @@ FROM timescale/timescaledb:2.17.2-pg17
 #     && cargo run --manifest-path ../tools/post-install/Cargo.toml -- pg_config
 
 
-# Create the final container
+# Timescaledb alpine image (pre-build)
 FROM timescale/timescaledb:2.17.2-pg17 AS timescaledb-alpine
 
-
+# Create the final container
+FROM timescale/timescaledb:2.17.2-pg17
 # To install any package we need to be root user
 USER root
 # barman-cloud-backup will remove this from container
